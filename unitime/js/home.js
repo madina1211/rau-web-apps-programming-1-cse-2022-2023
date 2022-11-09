@@ -1,6 +1,20 @@
 const NUMBER_OF_COURSES_DISPLAYED = 3;
 let MIDDLE_COURSE_INDEX = (NUMBER_OF_COURSES_DISPLAYED-1) / 2;
 
+// debug this
+const url = "http://127.0.0.1:5000/api/v1/courses"
+
+function success(response) {
+    return response.json();
+}
+
+function afterSuccess(data) {
+    console.log(data);
+}
+
+fetch(url,  {mode: 'no-cors'}).then(success).then(afterSuccess);
+
+
 const courses = [
     {
         url: "https://www.coursera.org/learn/financial-markets-global",
