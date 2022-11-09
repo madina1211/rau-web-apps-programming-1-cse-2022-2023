@@ -1,5 +1,5 @@
 const NUMBER_OF_COURSES_DISPLAYED = 3;
-let MIDDLE_COURSE_INDEX = (NUMBER_OF_COURSES_DISPLAYED-1) / 2;
+let MIDDLE_COURSE_INDEX = (NUMBER_OF_COURSES_DISPLAYED - 1) / 2;
 
 // debug this
 const url = "http://127.0.0.1:5000/api/v1/courses"
@@ -21,30 +21,29 @@ const headers = {
 fetch(url, headers).then(success).then(afterSuccess);
 
 
-const courses = [
-    {
+const courses = [{
         url: "https://www.coursera.org/learn/financial-markets-global",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course1.jpg"
+        image: "assets/course1.jpg"
     },
     {
         url: "https://www.coursera.org/learn/the-science-of-well-being",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course2.jpg"
+        image: "assets/course2.jpg"
     },
     {
         url: "https://www.coursera.org/learn/sciwrite",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course3.jpg"
+        image: "assets/course3.jpg"
     },
     {
         url: "https://www.coursera.org/learn/stanford-statistics",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course4.jpg"
+        image: "assets/course4.jpg"
     },
     {
         url: "https://www.coursera.org/learn/private-equity",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course5.jpg"
+        image: "assets/course5.jpg"
     },
     {
         url: "https://www.coursera.org/courses?query=free",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course6.jpg"
+        image: "assets/course6.jpg"
     }
 ];
 
@@ -78,7 +77,7 @@ function createCourseDiv(courseLinkUrl, courseImagePath) {
 
     // 8. attach the <a> to <div> as a child 
     courseDiv.appendChild(courseLink);
-        
+
     return courseDiv;
 }
 
@@ -89,7 +88,7 @@ function insertOneCourseIntoCourseList(courseDiv) {
     // 10. add / insert the div generated at 1-8 
     // as the second element inside the "course-list" children
     let numberOfChildren = courseListArea.children.length;
-    courseListArea.insertBefore(courseDiv, courseListArea.children[numberOfChildren-1]);
+    courseListArea.insertBefore(courseDiv, courseListArea.children[numberOfChildren - 1]);
 }
 
 for (let i = 0; i < NUMBER_OF_COURSES_DISPLAYED; i++) {
@@ -100,12 +99,13 @@ for (let i = 0; i < NUMBER_OF_COURSES_DISPLAYED; i++) {
 }
 
 let courseJump = 2;
+
 function moveLeftCourse() {
     let nextCourseIndex = MIDDLE_COURSE_INDEX + courseJump;
     if (nextCourseIndex >= courses.length) {
         nextCourseIndex = 0;
         courseJump = 1;
-    } 
+    }
     MIDDLE_COURSE_INDEX = nextCourseIndex;
 
     // get the course list 
@@ -128,17 +128,17 @@ function moveLeftCourse() {
 function moveRightCourse() {
     let nextCourseIndex = MIDDLE_COURSE_INDEX - courseJump;
     if (nextCourseIndex < 0) {
-        nextCourseIndex = courses.length-1;
+        nextCourseIndex = courses.length - 1;
         courseJump = 1;
-    } 
+    }
     MIDDLE_COURSE_INDEX = nextCourseIndex;
-    
+
     // get the course list 
     const courseListArea = document.getElementById("course-list");
 
     // remove the last element before the right arrow
     const numberOfChildren = courseListArea.children.length;
-    const lastCourseBeforeRightArrow = courseListArea.children[numberOfChildren-2];
+    const lastCourseBeforeRightArrow = courseListArea.children[numberOfChildren - 2];
     courseListArea.removeChild(lastCourseBeforeRightArrow);
 
     // create a new course

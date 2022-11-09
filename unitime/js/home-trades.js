@@ -4,34 +4,33 @@
 //    </a>
 // </div> 
 
-const TRADES_LIST = [
-    {
+const TRADES_LIST = [{
         url: "https://www.coursera.org/learn/financial-markets-global",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course1.jpg"
+        image: "assets/course1.jpg"
     },
     {
         url: "https://www.coursera.org/learn/the-science-of-well-being",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course2.jpg"
+        image: "assets/course2.jpg"
     },
     {
         url: "https://www.coursera.org/learn/sciwrite",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course3.jpg"
+        image: "assets/course3.jpg"
     },
     {
         url: "https://www.coursera.org/learn/stanford-statistics",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course4.jpg"
+        image: "assets/course4.jpg"
     },
     {
         url: "https://www.coursera.org/learn/private-equity",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course5.jpg"
+        image: "assets/course5.jpg"
     },
     {
         url: "https://www.coursera.org/courses?query=free",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course6.jpg"
+        image: "assets/course6.jpg"
     }
 ];
 
-function createTradeDiv(tradeURL="", tradeImagePath="") {
+function createTradeDiv(tradeURL = "", tradeImagePath = "") {
     const tradeDiv = document.createElement("div");
     const tradeAnchor = document.createElement("a");
     const tradeImage = document.createElement("img");
@@ -67,7 +66,7 @@ function moveRight() {
 
     const firstTradeDiv = tradesListDiv.children[1];
 
-    let newTradeInfo; 
+    let newTradeInfo;
     if (firstImageIndex > 0) {
         newTradeInfo = TRADES_LIST[firstImageIndex - 1];
         firstImageIndex = firstImageIndex - 1;
@@ -75,11 +74,11 @@ function moveRight() {
         newTradeInfo = TRADES_LIST[TRADES_LIST.length - 1];
         firstImageIndex = TRADES_LIST.length - 1;
     }
-    
+
     const newTradeDiv = createCourseDiv(newTradeInfo.url, newTradeInfo.image);
     tradesListDiv.insertBefore(newTradeDiv, firstTradeDiv);
 
-    if (lastImageIndex > 0) { 
+    if (lastImageIndex > 0) {
         lastImageIndex = lastImageIndex - 1;
     } else {
         lastImageIndex = TRADES_LIST.length - 1;
@@ -96,12 +95,12 @@ function moveLeft() {
     const rightArrowDiv = tradesListDiv.children[lastChildIndex];
 
     let newTradeInfo;
-    lastImageIndex = lastImageIndex + 1; 
+    lastImageIndex = lastImageIndex + 1;
     if (lastImageIndex < TRADES_LIST.length) {
-        newTradeInfo = TRADES_LIST[lastImageIndex]; 
+        newTradeInfo = TRADES_LIST[lastImageIndex];
     } else {
         lastImageIndex = 0;
-        newTradeInfo = TRADES_LIST[lastImageIndex]; 
+        newTradeInfo = TRADES_LIST[lastImageIndex];
     }
     const newTradeDiv = createCourseDiv(newTradeInfo.url, newTradeInfo.image);
     tradesListDiv.insertBefore(newTradeDiv, rightArrowDiv);
