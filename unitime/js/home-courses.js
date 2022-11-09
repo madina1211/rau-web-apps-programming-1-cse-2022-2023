@@ -1,52 +1,65 @@
+let courses; 
 const NUMBER_OF_COURSES_DISPLAYED = 3;
 let MIDDLE_COURSE_INDEX = (NUMBER_OF_COURSES_DISPLAYED-1) / 2;
-
-// debug this
-const url = "http://127.0.0.1:5000/api/v1/courses"
+const COURSES_URL = "http://127.0.0.1:5000/api/v1/courses"
 
 function success(response) {
     if (!response.ok) {
         throw `Server error: [${response.status}] [${response.statusText}] [${response.url}]`;
     }
+    console.log(response);
     return response.json();
 }
 
 function afterSuccess(data) {
-    console.log(data);
+    courses = data;
+    if (!data) {
+        return;
+    }
+    for (let i = 0; i < NUMBER_OF_COURSES_DISPLAYED; i++) {
+        if (i < data.length) {
+            const courseLinkUrl = data[i].url;
+            const courseImagePath = data[i].image;
+            const courseDiv = createCourseDiv(courseLinkUrl, courseImagePath);
+            insertOneCourseIntoCourseList(courseDiv);
+        } else {
+            break;
+        }
+    }
 }
 
-const headers = {
+const COURSES_HEADERS = {
     'Content-Type': 'application/json'
 }
-fetch(url, headers).then(success).then(afterSuccess);
+fetch(COURSES_URL, COURSES_HEADERS).then(success).then(afterSuccess);
 
 
-const courses = [
-    {
-        url: "https://www.coursera.org/learn/financial-markets-global",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course1.jpg"
-    },
-    {
-        url: "https://www.coursera.org/learn/the-science-of-well-being",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course2.jpg"
-    },
-    {
-        url: "https://www.coursera.org/learn/sciwrite",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course3.jpg"
-    },
-    {
-        url: "https://www.coursera.org/learn/stanford-statistics",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course4.jpg"
-    },
-    {
-        url: "https://www.coursera.org/learn/private-equity",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course5.jpg"
-    },
-    {
-        url: "https://www.coursera.org/courses?query=free",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course6.jpg"
-    }
-];
+// const courses = [
+//     {
+//         url: "https://www.coursera.org/learn/financial-markets-global",
+//         image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course1.jpg"
+//     },
+//     {
+//         url: "https://www.coursera.org/learn/the-science-of-well-being",
+//         image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course2.jpg"
+//     },
+//     {
+//         url: "https://www.coursera.org/learn/sciwrite",
+//         image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course3.jpg"
+//     },
+//     {
+//         url: "https://www.coursera.org/learn/stanford-statistics",
+//         image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course4.jpg"
+//     },
+//     {
+//         url: "https://www.coursera.org/learn/private-equity",
+//         image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course5.jpg"
+//     },
+//     {
+//         url: "https://www.coursera.org/courses?query=free",
+//         image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course6.jpg"
+//     }
+// ];
 
 // <div class="course-items-grid-child">
 //    <a href="https://www.coursera.org/learn/financial-markets-global">
@@ -90,13 +103,6 @@ function insertOneCourseIntoCourseList(courseDiv) {
     // as the second element inside the "course-list" children
     let numberOfChildren = courseListArea.children.length;
     courseListArea.insertBefore(courseDiv, courseListArea.children[numberOfChildren-1]);
-}
-
-for (let i = 0; i < NUMBER_OF_COURSES_DISPLAYED; i++) {
-    const courseLinkUrl = courses[i].url;
-    const courseImagePath = courses[i].image;
-    const courseDiv = createCourseDiv(courseLinkUrl, courseImagePath);
-    insertOneCourseIntoCourseList(courseDiv);
 }
 
 let courseJump = 2;

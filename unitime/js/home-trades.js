@@ -1,35 +1,35 @@
-// <div class="course-items-grid-child">
-//    <a href="individual-item.html">
-//      <img src="assets/iphone.jpg">
-//    </a>
-// </div> 
+let TRADES_LIST = [];
+const NUMBER_OF_TRADES = 3;
+let firstImageIndex = 0;
+let lastImageIndex = NUMBER_OF_TRADES - 1;
+const TRADES_URL = "http://127.0.0.1:5000/api/v1/trades";
+const TRADES_HEADERS = {
+    "Content-Type": "application/json"
+};
 
-const TRADES_LIST = [
-    {
-        url: "https://www.coursera.org/learn/financial-markets-global",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course1.jpg"
-    },
-    {
-        url: "https://www.coursera.org/learn/the-science-of-well-being",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course2.jpg"
-    },
-    {
-        url: "https://www.coursera.org/learn/sciwrite",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course3.jpg"
-    },
-    {
-        url: "https://www.coursera.org/learn/stanford-statistics",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course4.jpg"
-    },
-    {
-        url: "https://www.coursera.org/learn/private-equity",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course5.jpg"
-    },
-    {
-        url: "https://www.coursera.org/courses?query=free",
-        image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course6.jpg"
+function responseReceived(response) {
+    if (!response.ok) {
+        throw "Failed to get data."
     }
-];
+    return response.json();
+}
+
+function initialize(data) {
+    if (!data) {
+        return;
+    }
+    TRADES_LIST = data;
+    for (let i = 0; i < NUMBER_OF_TRADES; i++) {
+        if (i >= TRADES_LIST.length) {
+            break;
+        }
+        const tradeInfo = TRADES_LIST[i];
+        const tradeDiv = createTradeDiv(tradeInfo.url, tradeInfo.image);
+        tradesListDiv.insertBefore(tradeDiv, rightArrowDiv);
+    }
+}
+
+fetch(TRADES_URL, TRADES_HEADERS).then(responseReceived).then(initialize);
 
 function createTradeDiv(tradeURL="", tradeImagePath="") {
     const tradeDiv = document.createElement("div");
@@ -45,19 +45,6 @@ function createTradeDiv(tradeURL="", tradeImagePath="") {
 
     return tradeDiv;
 }
-
-const tradesListDiv = document.getElementById("trades-list");
-const rightArrowDiv = tradesListDiv.children[tradesListDiv.children.length - 1];
-
-const NUMBER_OF_TRADES = 3;
-for (let i = 0; i < NUMBER_OF_TRADES; i++) {
-    const tradeInfo = TRADES_LIST[i];
-    const tradeDiv = createTradeDiv(tradeInfo.url, tradeInfo.image);
-    tradesListDiv.insertBefore(tradeDiv, rightArrowDiv);
-}
-
-let firstImageIndex = 0;
-let lastImageIndex = NUMBER_OF_TRADES - 1;
 
 function moveRight() {
     const tradesListDiv = document.getElementById("trades-list");
@@ -107,8 +94,12 @@ function moveLeft() {
     tradesListDiv.insertBefore(newTradeDiv, rightArrowDiv);
 
     if (firstImageIndex > TRADES_LIST.length - 1) {
-        // TODO: reinit firstImageIndex
+        firstImageIndex = 0;
     } else {
         firstImageIndex = firstImageIndex + 1;
     }
 }
+
+const tradesListDiv = document.getElementById("trades-list");
+const rightArrowDiv = tradesListDiv.children[tradesListDiv.children.length - 1];
+
