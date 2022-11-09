@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // <div class="course-items-grid-child">
 //    <a href="individual-item.html">
 //      <img src="assets/iphone.jpg">
@@ -27,8 +28,40 @@ const TRADES_LIST = [{
     {
         url: "https://www.coursera.org/courses?query=free",
         image: "assets/course6.jpg"
+=======
+let TRADES_LIST = [];
+const NUMBER_OF_TRADES = 3;
+let firstImageIndex = 0;
+let lastImageIndex = NUMBER_OF_TRADES - 1;
+const TRADES_URL = "http://127.0.0.1:5000/api/v1/trades";
+const TRADES_HEADERS = {
+    "Content-Type": "application/json"
+};
+
+function responseReceived(response) {
+    if (!response.ok) {
+        throw "Failed to get data."
     }
-];
+    return response.json();
+}
+
+function initialize(data) {
+    if (!data) {
+        return;
+>>>>>>> e6588fe1df294067de227a8b592c3f4f1c73cb42
+    }
+    TRADES_LIST = data;
+    for (let i = 0; i < NUMBER_OF_TRADES; i++) {
+        if (i >= TRADES_LIST.length) {
+            break;
+        }
+        const tradeInfo = TRADES_LIST[i];
+        const tradeDiv = createTradeDiv(tradeInfo.url, tradeInfo.image);
+        tradesListDiv.insertBefore(tradeDiv, rightArrowDiv);
+    }
+}
+
+fetch(TRADES_URL, TRADES_HEADERS).then(responseReceived).then(initialize);
 
 function createTradeDiv(tradeURL = "", tradeImagePath = "") {
     const tradeDiv = document.createElement("div");
@@ -44,19 +77,6 @@ function createTradeDiv(tradeURL = "", tradeImagePath = "") {
 
     return tradeDiv;
 }
-
-const tradesListDiv = document.getElementById("trades-list");
-const rightArrowDiv = tradesListDiv.children[tradesListDiv.children.length - 1];
-
-const NUMBER_OF_TRADES = 3;
-for (let i = 0; i < NUMBER_OF_TRADES; i++) {
-    const tradeInfo = TRADES_LIST[i];
-    const tradeDiv = createTradeDiv(tradeInfo.url, tradeInfo.image);
-    tradesListDiv.insertBefore(tradeDiv, rightArrowDiv);
-}
-
-let firstImageIndex = 0;
-let lastImageIndex = NUMBER_OF_TRADES - 1;
 
 function moveRight() {
     const tradesListDiv = document.getElementById("trades-list");
@@ -106,8 +126,12 @@ function moveLeft() {
     tradesListDiv.insertBefore(newTradeDiv, rightArrowDiv);
 
     if (firstImageIndex > TRADES_LIST.length - 1) {
-        // TODO: reinit firstImageIndex
+        firstImageIndex = 0;
     } else {
         firstImageIndex = firstImageIndex + 1;
     }
 }
+
+const tradesListDiv = document.getElementById("trades-list");
+const rightArrowDiv = tradesListDiv.children[tradesListDiv.children.length - 1];
+
