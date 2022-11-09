@@ -1,34 +1,3 @@
-<<<<<<< HEAD
-// <div class="course-items-grid-child">
-//    <a href="individual-item.html">
-//      <img src="assets/iphone.jpg">
-//    </a>
-// </div> 
-
-const TRADES_LIST = [{
-        url: "https://www.coursera.org/learn/financial-markets-global",
-        image: "assets/course1.jpg"
-    },
-    {
-        url: "https://www.coursera.org/learn/the-science-of-well-being",
-        image: "assets/course2.jpg"
-    },
-    {
-        url: "https://www.coursera.org/learn/sciwrite",
-        image: "assets/course3.jpg"
-    },
-    {
-        url: "https://www.coursera.org/learn/stanford-statistics",
-        image: "assets/course4.jpg"
-    },
-    {
-        url: "https://www.coursera.org/learn/private-equity",
-        image: "assets/course5.jpg"
-    },
-    {
-        url: "https://www.coursera.org/courses?query=free",
-        image: "assets/course6.jpg"
-=======
 let TRADES_LIST = [];
 const NUMBER_OF_TRADES = 3;
 let firstImageIndex = 0;
@@ -48,7 +17,6 @@ function responseReceived(response) {
 function initialize(data) {
     if (!data) {
         return;
->>>>>>> e6588fe1df294067de227a8b592c3f4f1c73cb42
     }
     TRADES_LIST = data;
     for (let i = 0; i < NUMBER_OF_TRADES; i++) {
@@ -134,4 +102,3 @@ function moveLeft() {
 
 const tradesListDiv = document.getElementById("trades-list");
 const rightArrowDiv = tradesListDiv.children[tradesListDiv.children.length - 1];
-

@@ -1,14 +1,7 @@
-let courses; 
+let courses;
 const NUMBER_OF_COURSES_DISPLAYED = 3;
-<<<<<<< HEAD
 let MIDDLE_COURSE_INDEX = (NUMBER_OF_COURSES_DISPLAYED - 1) / 2;
-
-// debug this
-const url = "http://127.0.0.1:5000/api/v1/courses"
-=======
-let MIDDLE_COURSE_INDEX = (NUMBER_OF_COURSES_DISPLAYED-1) / 2;
 const COURSES_URL = "http://127.0.0.1:5000/api/v1/courses"
->>>>>>> e6588fe1df294067de227a8b592c3f4f1c73cb42
 
 function success(response) {
     if (!response.ok) {
@@ -38,36 +31,6 @@ function afterSuccess(data) {
 const COURSES_HEADERS = {
     'Content-Type': 'application/json'
 }
-<<<<<<< HEAD
-fetch(url, headers).then(success).then(afterSuccess);
-
-
-const courses = [{
-        url: "https://www.coursera.org/learn/financial-markets-global",
-        image: "assets/course1.jpg"
-    },
-    {
-        url: "https://www.coursera.org/learn/the-science-of-well-being",
-        image: "assets/course2.jpg"
-    },
-    {
-        url: "https://www.coursera.org/learn/sciwrite",
-        image: "assets/course3.jpg"
-    },
-    {
-        url: "https://www.coursera.org/learn/stanford-statistics",
-        image: "assets/course4.jpg"
-    },
-    {
-        url: "https://www.coursera.org/learn/private-equity",
-        image: "assets/course5.jpg"
-    },
-    {
-        url: "https://www.coursera.org/courses?query=free",
-        image: "assets/course6.jpg"
-    }
-];
-=======
 fetch(COURSES_URL, COURSES_HEADERS).then(success).then(afterSuccess);
 
 
@@ -97,7 +60,6 @@ fetch(COURSES_URL, COURSES_HEADERS).then(success).then(afterSuccess);
 //         image: "D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course6.jpg"
 //     }
 // ];
->>>>>>> e6588fe1df294067de227a8b592c3f4f1c73cb42
 
 // <div class="course-items-grid-child">
 //    <a href="https://www.coursera.org/learn/financial-markets-global">
