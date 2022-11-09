@@ -60,6 +60,8 @@ let firstImageIndex = 0;
 let lastImageIndex = NUMBER_OF_TRADES - 1;
 
 function moveRight() {
+    const tradesListDiv = document.getElementById("trades-list");
+
     const lastChildIndex = tradesListDiv.children.length;
     tradesListDiv.children[lastChildIndex - 2].remove();
 
@@ -74,20 +76,39 @@ function moveRight() {
         firstImageIndex = TRADES_LIST.length - 1;
     }
     
-    console.log('first index: ', firstImageIndex);
-
     const newTradeDiv = createCourseDiv(newTradeInfo.url, newTradeInfo.image);
     tradesListDiv.insertBefore(newTradeDiv, firstTradeDiv);
 
     if (lastImageIndex > 0) { 
         lastImageIndex = lastImageIndex - 1;
     } else {
-        // TODO: figure out how to reset the last image index when it gets to the first image (i.e. index 0)
+        lastImageIndex = TRADES_LIST.length - 1;
     }
-    
-    console.log("last image index: ", lastImageIndex);
 }
 
 function moveLeft() {
+    const tradesListDiv = document.getElementById("trades-list");
 
+    const firstTradeDiv = tradesListDiv.children[1];
+    firstTradeDiv.remove();
+
+    const lastChildIndex = tradesListDiv.children.length - 1;
+    const rightArrowDiv = tradesListDiv.children[lastChildIndex];
+
+    let newTradeInfo; 
+    if (lastImageIndex > lastChildIndex) {
+        lastImageIndex = 0; 
+    } else {
+        lastImageIndex = lastImageIndex + 1;
+        newTradeInfo = TRADES_LIST[lastImageIndex];
+    }
+
+    const newTradeDiv = createCourseDiv(newTradeInfo.url, newTradeInfo.image);
+    tradesListDiv.insertBefore(newTradeDiv, rightArrowDiv);
+
+    if (firstImageIndex > lastChildIndex) {
+        // TODO: reinitialise the firstImageIndex 
+    } else {
+        firstImageIndex = firstImageIndex + 1;
+    }
 }
