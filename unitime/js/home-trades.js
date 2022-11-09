@@ -95,19 +95,19 @@ function moveLeft() {
     const lastChildIndex = tradesListDiv.children.length - 1;
     const rightArrowDiv = tradesListDiv.children[lastChildIndex];
 
-    let newTradeInfo; 
-    if (lastImageIndex > lastChildIndex) {
-        lastImageIndex = 0; 
+    let newTradeInfo;
+    lastImageIndex = lastImageIndex + 1; 
+    if (lastImageIndex < TRADES_LIST.length) {
+        newTradeInfo = TRADES_LIST[lastImageIndex]; 
     } else {
-        lastImageIndex = lastImageIndex + 1;
-        newTradeInfo = TRADES_LIST[lastImageIndex];
+        lastImageIndex = 0;
+        newTradeInfo = TRADES_LIST[lastImageIndex]; 
     }
-
     const newTradeDiv = createCourseDiv(newTradeInfo.url, newTradeInfo.image);
     tradesListDiv.insertBefore(newTradeDiv, rightArrowDiv);
 
-    if (firstImageIndex > lastChildIndex) {
-        // TODO: reinitialise the firstImageIndex 
+    if (firstImageIndex > TRADES_LIST.length - 1) {
+        // TODO: reinit firstImageIndex
     } else {
         firstImageIndex = firstImageIndex + 1;
     }

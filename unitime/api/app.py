@@ -1,4 +1,5 @@
 from flask import Flask, request
+from flask_cors import CORS
 import json 
 
 from courses import Course
@@ -9,6 +10,7 @@ coursesdb = [
 ]
 
 app = Flask("unitime")
+CORS(app)
 
 @app.route("/api/v1/courses", methods=["GET", "POST"])
 def courses():
@@ -21,7 +23,7 @@ def courses():
             return json.dumps(response), 200 
         except Exception as e:
             error_message = {"error": "Failed to get courses."}
-            return json.dumps(error_message), 500 
+            return json.dumps(error_message), 500, "application/json" 
 
     if request.method == "POST":
         data = request.json 
