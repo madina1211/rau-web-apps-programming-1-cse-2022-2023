@@ -4,6 +4,7 @@ import json
 
 from courses import Course
 from trades import Trade
+from data import connect, get_all_courses
 
 coursesdb = [
     Course(name="Course 1", url="https://www.coursera.org/learn/financial-markets-global", path_to_image="D:\\Luchici - Web Apps 1 - 2022 - 2023\\rau-web-apps-programming-1-cse-2022-2023\\unitime\\assets\\course1.jpg"),
@@ -29,10 +30,16 @@ CORS(app)
 def courses():
     if request.method == "GET":
         try:
+            conn = connect()
+            courses = get_all_courses(conn)
+
             response = []
-            for course in coursesdb:
+            for course in courses:
                 course_dict = course.to_dict()
                 response.append(course_dict)
+            
+            conn.close()
+            
             return json.dumps(response), 200 
         except Exception as e:
             error_message = {"error": "Failed to get courses."}
